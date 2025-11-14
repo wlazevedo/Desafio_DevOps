@@ -1,0 +1,10 @@
+# ansible/vars/main.yaml
+project_id: atividade-devops-walax
+cluster_name: devops-challenge-cluster
+region: us-central1
+zone: us-central1-a
+
+# paths
+k8s_dir: ../k8s
+monitoring_dir: ../monitoring
+security_dir: ../security

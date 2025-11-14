@@ -1,0 +1,15 @@
+grafana:
+  enabled: true
+  adminUser: admin
+  adminPassword: admin
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+  dashboardsConfigMaps:
+    enabled: false
+  additionalDataSources:
+    - name: Prometheus
+      type: prometheus
+      access: proxy
+      url: http://kube-prometheus-stack-prometheus:9090

@@ -1,0 +1,16 @@
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    ruleSelector: {}
+    evaluationInterval: 30s
+    scrapeInterval: 15s
+kubeStateMetrics:
+  enabled: true
+nodeExporter:
+  enabled: true
+alertmanager:
+  enabled: true
+
+grafana:
+  enabled: true
