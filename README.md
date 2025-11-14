@@ -6,7 +6,6 @@
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-GKE-326CE5?logo=kubernetes)](https://kubernetes.io/)
 [![Terraform](https://img.shields.io/badge/IaC-Terraform-7B42BC?logo=terraform)](https://terraform.io/)
 [![CI/CD](https://img.shields.io/badge/CI/CD-GitHub_Actions-2088FF?logo=github-actions)](https://github.com/features/actions)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
@@ -15,16 +14,12 @@
 - [Visão Geral](#visão-geral)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Arquitetura](#arquitetura)
-- [Requisitos Atendidos](#requisitos-atendidos)
 - [Pré-requisitos](#pré-requisitos)
 - [Como Executar](#como-executar)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Testes e Validação](#testes-e-validação)
-- [Monitoramento](#monitoramento)
 - [Segurança](#segurança)
 - [CI/CD](#cicd)
-- [Troubleshooting](#troubleshooting)
-- [Autor](#autor)
 
 ---
 
@@ -48,28 +43,28 @@ Este repositório contém uma **infraestrutura completa de DevOps** implementada
 ## Tecnologias Utilizadas
 
 ### **Infraestrutura**
-- ![GCP](https://img.shields.io/badge/GCP-4285F4?style=flat&logo=google-cloud&logoColor=white) Google Cloud Platform
-- ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=flat&logo=terraform&logoColor=white) Terraform v1.6+
-- ![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=flat&logo=ansible&logoColor=white) Ansible v2.15+
+- Google Cloud Platform
+- Terraform v1.6+
+- Ansible v2.15+
 
 ### **Kubernetes**
-- ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white) GKE (Google Kubernetes Engine)
-- ![Helm](https://img.shields.io/badge/Helm-0F1689?style=flat&logo=helm&logoColor=white) Helm v3
-- ![Nginx](https://img.shields.io/badge/Nginx-009639?style=flat&logo=nginx&logoColor=white) Ingress Nginx
-- ![Cert-Manager](https://img.shields.io/badge/Cert--Manager-326CE5?style=flat) Cert-Manager (Let's Encrypt)
+- GKE (Google Kubernetes Engine)
+- Helm
+- Ingress Nginx
+- Cert-Manager (Let's Encrypt)
 
 ### **Observabilidade**
-- ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white) Prometheus
-- ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat&logo=grafana&logoColor=white) Grafana
-- ![Loki](https://img.shields.io/badge/Loki-F46800?style=flat) Loki + Promtail
+- Prometheus
+- Grafana
+- Loki + Promtail
 
 ### **Segurança**
-- ![Vault](https://img.shields.io/badge/Vault-000000?style=flat&logo=vault&logoColor=white) HashiCorp Vault
+- HashiCorp Vault
 - Network Policies
 - RBAC (Role-Based Access Control)
 
 ### **CI/CD**
-- ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat&logo=github-actions&logoColor=white) GitHub Actions
+- GitHub Actions
 
 ---
 
