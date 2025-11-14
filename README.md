@@ -435,5 +435,9 @@ git add . && git commit -m "test: CI/CD" && git push
 - [Terraform Registry](https://registry.terraform.io/)
 - [Prometheus Community](https://prometheus.io/community/)
 - [Grafana Labs](https://grafana.com/)
+- [Vault HashiCorp Dev Mode](https://developer.hashicorp.com/vault)
+- [Cert-manager](https://cert-manager.io/docs/getting-started/)
+- [Kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+- [Promtail + Loki](https://grafana.com/docs/loki/latest/)
 
 ---
