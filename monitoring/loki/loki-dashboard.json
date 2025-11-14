@@ -1,0 +1,15 @@
+{
+  "title": "Logs - Whoami",
+  "panels": [
+    {
+      "type": "logs",
+      "title": "Whoami Logs",
+      "targets": [
+        {
+          "expr": "{namespace=\"devops-challenge\", app=\"whoami\"}"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 36
+}
