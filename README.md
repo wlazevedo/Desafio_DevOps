@@ -207,9 +207,9 @@ kubectl get pods -A
 curl https://SEU-DOMINIO
 ```
 
-### **Opção 2: Deploy com Ansible**
+### **Opção 2: Deploy com Ansible, caso seja necessário por conta de algum manifest que não foi aplicado**
 ```bash
-# Após terraform apply
+# Após terraform apply é criado os recursos na GCP e o terraform também roda o playbook com os manifests. Caso queira forçar algum manifest não executado, rode os comandos a seguir:
 cd ../ansible
 ansible-playbook -i inventory/hosts playbook.yaml
 ```
