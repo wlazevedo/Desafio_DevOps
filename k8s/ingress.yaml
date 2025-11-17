@@ -4,15 +4,16 @@ metadata:
   name: whoami-ingress
   namespace: devops-challenge
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
-    - "devops-walax.ddns.net"
+    - devops-walax.ddns.net
     secretName: whoami-tls
   rules:
-  - host: "devops-walax.ddns.net"
+  - host: devops-walax.ddns.net
     http:
       paths:
       - path: /

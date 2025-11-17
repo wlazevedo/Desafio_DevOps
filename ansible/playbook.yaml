@@ -54,7 +54,7 @@
     - name: Aplicar ClusterIssuer (Let's Encrypt)
       kubernetes.core.k8s:
         state: present
-        src: ../k8s/clusterissuer-prod.yaml
+        src: ../k8s/clusterissuer.yaml
 
     # 5. Instalar ingress-nginx via Helm
     - name: Instalar ingress-nginx

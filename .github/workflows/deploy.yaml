@@ -1,19 +1,18 @@
-name: CI/CD - Deploy da Aplicação e Observabilidade
+name: CI/CD - Deploy Kubernetes (Simples)
 
 on:
   push:
     branches: [ "main" ]
     paths:
       - "k8s/**"
-      - "monitoring/dashboards/**"
-      - "monitoring/alerts/**"
-      - "health/**"
+      - "monitoring/**"
       - "vault/**"
+      - "health/**"
 
 jobs:
 
   deploy:
-    name: Deploy no GKE + Dashboards + Alertas + Health + Vault
+    name: Deploy no GKE (Simples)
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +20,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    # Autenticação no Google Cloud
+    # Autenticação
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
@@ -36,36 +35,32 @@ jobs:
           --zone us-central1-a \
           --project atividade-devops-walax
 
-    # Deploy dos manifests da aplicação
-    - name: Apply Application K8s manifests
+    # Deploy da aplicação
+    - name: Apply Application Manifests
       run: |
-        kubectl apply -f k8s/namespace.yaml
-        kubectl apply -f k8s/deployment.yaml
-        kubectl apply -f k8s/service.yaml
-        kubectl apply -f k8s/ingress.yaml
-        kubectl apply -f k8s/hpa.yaml
+        kubectl apply -f k8s/
 
     # Dashboards
-    - name: Apply Grafana dashboards
+    - name: Deploy Grafana Dashboards
       run: |
         kubectl apply -f monitoring/dashboards/
 
-    # Alertas
-    - name: Apply Prometheus alert rules
+    # Alertas Prometheus
+    - name: Deploy Prometheus Alert Rules
       run: |
         kubectl apply -f monitoring/alerts/
 
-    # Health-check após deploy
-    - name: Run health checks
+    # Datasource e Dashboard Loki
+    - name: Deploy Loki Datasource + Dashboard
+      run: |
+        kubectl apply -f monitoring/loki/
+
+    # Health Check
+    - name: Run Health Checks
       run: |
         bash health/health-check.sh
 
-    # Vault
-    - name: Configure Vault Secret into Kubernetes
+    # Criar Secret K8s simples
+    - name: Apply Static Kubernetes Secret
       run: |
         kubectl apply -f vault/secret-example.yaml
-
-    # Loki dashboard
-    - name: Apply Grafana Loki Datasource + Dashboard
-      run: |
-        kubectl apply -f monitoring/loki/

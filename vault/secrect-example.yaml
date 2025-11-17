@@ -5,4 +5,4 @@ metadata:
   namespace: devops-challenge
 type: Opaque
 stringData:
-  api-key: "{{ vault \"secret/data/whoami\" \"key\" }}"
+  api-key: "chave-gerada-no-vault"

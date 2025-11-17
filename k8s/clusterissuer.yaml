@@ -4,16 +4,10 @@ metadata:
   name: letsencrypt-prod
 spec:
   acme:
-    # Endpoint
-    server: https://acme-v02.api.letsencrypt.org/directory
-
     email: walaxazevedo728@gmail.com
-
-    # Chave privada
+    server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-prod
-
-    # Configuração do solver HTTP-01
     solvers:
     - http01:
         ingress:
