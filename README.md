@@ -411,10 +411,9 @@ O pipeline é disparado automaticamente a cada push na branch `main`.
 1. Checkout do código
 2. Autenticação no GCP
 3. Configuração do kubectl
-4. Deploy dos manifestos Kubernetes
-5. Aplicação de dashboards e alertas
-6. Health checks
-7. Verificação de status
+4. Aplicação de dashboards e alertas
+5. Health checks
+6. Verificação de status
 
 **Ver pipeline:**
 ```
