@@ -1,11 +1,12 @@
-name: CI/CD - Deploy Kubernetes
+name: Deploy Observabilidade e Validações
+
 on:
-  workflow_dispatch:
+  workflow_dispatch: 
 
 jobs:
 
   deploy:
-    name: Deploy no GKE
+    name: Deploy no Kubernetes
     runs-on: ubuntu-latest
 
     steps:
@@ -13,6 +14,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    # Autenticação Google Cloud
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
@@ -21,26 +23,17 @@ jobs:
     - name: Setup gcloud
       uses: google-github-actions/setup-gcloud@v2
 
-    - name: Install GKE Auth Plugin (Ubuntu 24.04 fix)
-      run: |
-        pip install google-cloud-container
-        echo "export USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> $GITHUB_ENV
-
-    - name: Get GKE credentials
+    - name: GKE Credentials
       run: |
         gcloud container clusters get-credentials devops-challenge-cluster \
           --zone us-central1-a \
           --project atividade-devops-walax
 
-    - name: Apply Application Manifests
-      run: |
-        kubectl apply -f k8s/
-
     - name: Deploy Grafana Dashboards
       run: |
         kubectl apply -f monitoring/dashboards/
 
-    - name: Deploy Prometheus Alert Rules
+    - name: Deploy Prometheus Alertas
       run: |
         kubectl apply -f monitoring/alerts/
 
@@ -48,10 +41,10 @@ jobs:
       run: |
         kubectl apply -f monitoring/loki/
 
-    - name: Run Health Checks
-      run: |
-        bash health/health-check.sh
-
-    - name: Apply Static Kubernetes Secret
+    - name: Secret
       run: |
         kubectl apply -f vault/secret-example.yaml
+
+    - name: Health Check
+      run: |
+        bash health/health-check.sh
