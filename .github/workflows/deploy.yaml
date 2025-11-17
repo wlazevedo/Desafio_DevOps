@@ -1,54 +1,55 @@
 name: CI/CD - Deploy Kubernetes
-
 on:
   workflow_dispatch:
-
 jobs:
-
   deploy:
     name: Deploy no GKE
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    # Autenticação no Google Cloud
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v2
-      with:
-        credentials_json: ${{ secrets.GCP_SA_JSON }}
-
-    - name: Setup gcloud
-      uses: google-github-actions/setup-gcloud@v2
-
-    - name: Get GKE credentials
-      run: |
-        gcloud container clusters get-credentials devops-challenge-cluster \
-          --zone us-central1-a \
-          --project atividade-devops-walax
-
-    # Dashboards Grafana
-    - name: Deploy Grafana Dashboards
-      run: |
-        kubectl apply -f monitoring/dashboards/
-
-    # Alertas Prometheus
-    - name: Deploy Prometheus Alert Rules
-      run: |
-        kubectl apply -f monitoring/alerts/
-
-    # Datasource + Dashboard Loki
-    - name: Deploy Loki Datasource + Dashboard
-      run: |
-        kubectl apply -f monitoring/loki/
-
-    # Health Check
-    - name: Run Health Checks
-      run: |
-        bash health/health-check.sh
-
-    # Vault
-    - name: Apply Vault Static Secret
-      run: |
-        kubectl apply -f vault/secret-example.yaml
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      # Autenticação no Google Cloud
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_JSON }}
+      
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+      
+      # Instalar o plugin de autenticação do GKE
+      - name: Install gke-gcloud-auth-plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin --quiet
+      
+      - name: Get GKE credentials
+        run: |
+          gcloud container clusters get-credentials devops-challenge-cluster \
+            --zone us-central1-a \
+            --project atividade-devops-walax
+      
+      # Dashboards Grafana
+      - name: Deploy Grafana Dashboards
+        run: |
+          kubectl apply -f monitoring/dashboards/
+      
+      # Alertas Prometheus
+      - name: Deploy Prometheus Alert Rules
+        run: |
+          kubectl apply -f monitoring/alerts/
+      
+      # Datasource + Dashboard Loki
+      - name: Deploy Loki Datasource + Dashboard
+        run: |
+          kubectl apply -f monitoring/loki/
+      
+      # Health Check
+      - name: Run Health Checks
+        run: |
+          bash health/health-check.sh
+      
+      # Vault
+      - name: Apply Vault Static Secret
+        run: |
+          kubectl apply -f vault/secret-example.yaml
