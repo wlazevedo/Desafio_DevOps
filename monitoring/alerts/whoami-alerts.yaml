@@ -5,21 +5,20 @@ metadata:
   namespace: monitoring
 spec:
   groups:
-  - name: whoami-basic-alerts
-    rules:
-
-    - alert: WhoamiPodRestarting
-      expr: increase(kube_pod_container_status_restarts_total{namespace="devops-challenge", pod=~"whoami.*"}[5m]) > 0
-      for: 1m
-      labels:
-        severity: warning
-      annotations:
-        description: "Pod whoami está reiniciando."
-
-    - alert: HighCPUWhoami
-      expr: sum(rate(container_cpu_usage_seconds_total{namespace="devops-challenge", pod=~\"whoami.*\"}[2m])) > 0.5
-      for: 1m
-      labels:
-        severity: warning
-      annotations:
-        description: "CPU acima do normal no whoami."
+    - name: whoami-basic-alerts
+      rules:
+        - alert: WhoamiPodRestarting
+          expr: increase(kube_pod_container_status_restarts_total{namespace="devops-challenge", pod=~"whoami.*"}[5m]) > 0
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            description: "Pod whoami está reiniciando."
+        
+        - alert: HighCPUWhoami
+          expr: sum(rate(container_cpu_usage_seconds_total{namespace="devops-challenge", pod=~"whoami.*"}[2m])) > 0.5
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            description: "CPU acima do normal no whoami."
