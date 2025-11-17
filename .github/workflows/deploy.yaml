@@ -1,5 +1,4 @@
-name: CI/CD - Deploy Kubernetes 
-
+name: CI/CD - Deploy Kubernetes
 on:
   workflow_dispatch:
 
@@ -14,56 +13,45 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    # Autenticação no Google Cloud
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
         credentials_json: ${{ secrets.GCP_SA_JSON }}
 
-    # Setup gcloud
     - name: Setup gcloud
       uses: google-github-actions/setup-gcloud@v2
 
-    # Plugin de autenticação do GKE
-    - name: Install GKE Auth Plugin
+    - name: Install GKE Auth Plugin (Ubuntu 24.04 fix)
       run: |
-        sudo apt-get update
-        sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
+        pip install google-cloud-container
         echo "export USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> $GITHUB_ENV
 
-    # Pega credenciais do cluster GKE
     - name: Get GKE credentials
       run: |
         gcloud container clusters get-credentials devops-challenge-cluster \
           --zone us-central1-a \
           --project atividade-devops-walax
 
-    # Apply da aplicação
     - name: Apply Application Manifests
       run: |
         kubectl apply -f k8s/
 
-    # Dashboards Grafana
     - name: Deploy Grafana Dashboards
       run: |
         kubectl apply -f monitoring/dashboards/
 
-    # Alertas Prometheus
     - name: Deploy Prometheus Alert Rules
       run: |
         kubectl apply -f monitoring/alerts/
 
-    # Loki datasource + dashboard
     - name: Deploy Loki Datasource + Dashboard
       run: |
         kubectl apply -f monitoring/loki/
 
-    # Health check simples
     - name: Run Health Checks
       run: |
         bash health/health-check.sh
 
-    # Secret simples
     - name: Apply Static Kubernetes Secret
       run: |
         kubectl apply -f vault/secret-example.yaml
