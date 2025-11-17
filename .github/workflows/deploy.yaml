@@ -1,19 +1,19 @@
-name: Deploy Observabilidade e Validações
+name: CI/CD - Deploy Kubernetes
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
 
   deploy:
-    name: Deploy no Kubernetes
+    name: Deploy no GKE
     runs-on: ubuntu-latest
 
     steps:
-
     - name: Checkout
       uses: actions/checkout@v4
 
+    # Autenticação no Google Cloud
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
@@ -22,28 +22,33 @@ jobs:
     - name: Setup gcloud
       uses: google-github-actions/setup-gcloud@v2
 
-    - name: GKE Credentials
+    - name: Get GKE credentials
       run: |
         gcloud container clusters get-credentials devops-challenge-cluster \
           --zone us-central1-a \
           --project atividade-devops-walax
 
+    # Dashboards Grafana
     - name: Deploy Grafana Dashboards
       run: |
         kubectl apply -f monitoring/dashboards/
 
-    - name: Deploy Prometheus Alertas
+    # Alertas Prometheus
+    - name: Deploy Prometheus Alert Rules
       run: |
         kubectl apply -f monitoring/alerts/
 
+    # Datasource + Dashboard Loki
     - name: Deploy Loki Datasource + Dashboard
       run: |
         kubectl apply -f monitoring/loki/
 
-    - name: Secret
-      run: |
-        kubectl apply -f vault/secret-example.yaml
-
-    - name: Health Check
+    # Health Check
+    - name: Run Health Checks
       run: |
         bash health/health-check.sh
+
+    # Vault
+    - name: Apply Vault Static Secret
+      run: |
+        kubectl apply -f vault/secret-example.yaml
