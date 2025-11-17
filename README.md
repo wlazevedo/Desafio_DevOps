@@ -423,8 +423,7 @@ GitHub → Actions → Ver último workflow
 
 **Testar pipeline:**
 ```bash
-echo "# CI/CD Test" >> README.md
-git add . && git commit -m "test: CI/CD" && git push
+Run workflow - workflow dispatch 
 ```
 ---
 
