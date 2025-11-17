@@ -412,8 +412,9 @@ O pipeline é disparado automaticamente a cada push na branch `main`.
 2. Autenticação no GCP
 3. Configuração do kubectl
 4. Aplicação de dashboards e alertas
-5. Health checks
-6. Verificação de status
+5. Aplica secret simples no vault
+6. Health checks
+7. Verificação de status
 
 **Ver pipeline:**
 ```
